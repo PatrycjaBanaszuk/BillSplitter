@@ -1,24 +1,31 @@
-const inputPrice = document.querySelector('#price')
-const inputPeople = document.querySelector('#people')
+const price = document.querySelector('#price')
+const people = document.querySelector('#people')
 const calculate = document.querySelector('.count')
-const tipPercent = document.querySelector('#tip')
+const tip = document.querySelector('#tip')
 const error = document.querySelector('.error')
 const costInfo = document.querySelector('.cost-info')
 const cost = document.querySelector('.cost')
 
-const splitter = () => {
-	if (inputPeople.value === '' || inputPrice.value === '' || tipPercent === 0) {
+const checkBill = () => {
+	if (people.value === '' || price.value === '' || tip === 0) {
 		error.textContent = 'Please fill in all the blank!'
+		costInfo.textContent = ''
 	} else {
-
 		error.textContent = ''
-		costInfo.style.display = 'block'
-		const tip = tipPercent.value
-		const bill = (Number(inputPrice.value) + (Number(inputPrice.value) * Number(tip))) / Number(inputPeople.value)
-		cost.textContent = bill.toFixed(2)
 
-        
+		countBill()
 	}
 }
 
-calculate.addEventListener('click', splitter)
+const countBill = () => {
+	const newPrice = Number(price.value)
+	const newPeople = Number(people.value)
+	const newTip = Number(tip.value)
+
+	const sum = (newPrice + newPrice * newTip) / newPeople
+
+	costInfo.style.display = 'block'
+	cost.textContent = sum.toFixed(2)
+}
+
+calculate.addEventListener('click', checkBill)
